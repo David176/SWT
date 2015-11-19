@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cartesian2DVector.cs" />
+    <Compile Include="ICartesian2DVector.cs" />
     <Compile Include="VectorCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

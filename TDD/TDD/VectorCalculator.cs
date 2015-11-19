@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TDDUnitTest
+namespace TDD
 {
-    public class Class1
+    public class VectorCalculator
     {
+        Cartesian2DVector hej = new Cartesian2DVector(1,1);
     }
 }

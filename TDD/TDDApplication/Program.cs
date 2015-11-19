@@ -10,18 +10,24 @@ namespace TDDApplication
     {
         static void Main(string[] args)
         {
-            string name;
-            Console.WriteLine("What is your name?");
-            name = Console.ReadLine();
-            Console.WriteLine("Your name is: " + name + ". Correct?");
-            var answer = Console.ReadLine();
-            if (answer == "yes" || answer == "Yes")
+            var answer = "";
+
+
+            while (answer != "yes" || answer != "Yes")
             {
-                Console.WriteLine("Good for you, that is a great name " + name);
-            }
-            else
-            {
-                Console.WriteLine("Could not read your name, sorry");
+                Console.WriteLine("What is your name?");
+                var name = Console.ReadLine();
+                Console.WriteLine("Your name is: " + name + ". Correct?");
+                answer = Console.ReadLine();
+                if (answer == "yes" || answer == "Yes")
+                {
+                    Console.WriteLine("Good for you, that is a great name " + name);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Could not read your name, sorry");
+                }
             }
         }
     }
