@@ -11,11 +11,13 @@ namespace Uno.Test.Unit
     class PlayerUnitTest
     {
         private Player uut;
+        private TableDeck _tableDeck;
 
         [SetUp]
         public void Setup()
         {
-            uut = new Player();
+            _tableDeck = new TableDeck();
+            uut = new Player(_tableDeck);
 
         }
 
@@ -27,37 +29,31 @@ namespace Uno.Test.Unit
         }
 
         [Test]
-        public void UseCard_PlayerUsesCard_HandCountIsOneLess()
+        public void PlayCard_UseGreenAndOnlyGreen_NoGreenSoNoneUsed()
         {
-            uut.Hand.Add(new Card(1,1));
-            uut.Hand.Add(new Card(2,2));
-            int cardsPrevoiusly = uut.Hand.Count;
-            uut.UseCard();
-            Assert.That(uut.Hand.Count, Is.EqualTo(cardsPrevoiusly-1));
-        }
-        /*
-        [Test]
-        public void UseCard_UseGreenAndOnlyGreen_NoGreenSoNoneUsed()
-        {
+            _tableDeck.PutCard(new Card(5,1));
+
             uut.ReceiveCard(new Card(1,0));
-            uut.ReceiveCard(new Card(1,1));
-            uut.ReceiveCard(new Card(1, 2));
+            uut.ReceiveCard(new Card(1,2));
+            uut.ReceiveCard(new Card(1, 3));
             int cardsPrevoiusly = uut.Hand.Count;
-            uut.UseCard();
+            uut.PlayCard();
             Assert.That(cardsPrevoiusly, Is.EqualTo(uut.Hand.Count));
         }
-
+        
         [Test]
-        public void UseCard_UseGreenAndOnlyGreen_GreenExistSoUsedOne()
+        public void PlayCard_UseGreenAndOnlyGreen_GreenExistSoUsedOne()
         {
+            _tableDeck.PutCard(new Card(5, 1));
+
             uut.ReceiveCard(new Card(1, 0));
             uut.ReceiveCard(new Card(1, 1));
             uut.ReceiveCard(new Card(1, 2));
             uut.ReceiveCard(new Card(1, 3));
             int cardsPrevoiusly = uut.Hand.Count;
-            uut.UseCard();
+            uut.PlayCard();
             Assert.That(cardsPrevoiusly, Is.EqualTo(uut.Hand.Count-1));
         }
-        */
+        
     }
 }

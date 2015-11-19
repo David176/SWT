@@ -9,9 +9,11 @@ namespace Uno.Test.Unit
     {
         private Deck uut;
         private IConsoleWriter _consoleWriter;
+        private TableDeck _tableDeck;
         [SetUp]
         public void Setup()
         {
+            _tableDeck = new TableDeck();
             _consoleWriter = Substitute.For<IConsoleWriter>();
             uut = new Deck(_consoleWriter);
 
@@ -59,7 +61,7 @@ namespace Uno.Test.Unit
         public void DealCards_PlayerOneGetSevenCards()
         {
             
-            var playerOne = new Player();
+            var playerOne = new Player(_tableDeck);
             var listOfPlayers = new List<Player>();
             listOfPlayers.Add(playerOne);
 
@@ -70,9 +72,9 @@ namespace Uno.Test.Unit
         [Test]
         public void DealCards_PlayersGetSevenCards()
         {
-            var playerOne = new Player();
-            var playerTwo = new Player();
-            var playerThree = new Player();
+            var playerOne = new Player(_tableDeck);
+            var playerTwo = new Player(_tableDeck);
+            var playerThree = new Player(_tableDeck);
 
             var listOfPlayers = new List<Player>();
             listOfPlayers.Add(playerOne);
@@ -89,7 +91,7 @@ namespace Uno.Test.Unit
         [Test]
         public void DealCard_DealsACard_CheckForEmptyStack()
         {
-            var player = new Player();
+            var player = new Player(_tableDeck);
 
             
                 while(uut.DealCard(player));

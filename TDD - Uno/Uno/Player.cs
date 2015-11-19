@@ -10,9 +10,11 @@ namespace Uno
     {
         string Name { get; set; }
         public List<Card> Hand;
+        public TableDeck TableDeck;
 
-        public Player()
+        public Player(TableDeck tableDeck)
         {
+            TableDeck = tableDeck;
             Hand = new List<Card>();
         }
 
@@ -21,9 +23,17 @@ namespace Uno
             Hand.Add(card);
         }
 
-        public void UseCard()
+        public void PlayCard()
         {
-            Hand.RemoveAt(0);
+            foreach (var PlayerCard in Hand)
+            {
+                if (TableDeck.TopCard().Color == PlayerCard.Color)
+                {
+                    TableDeck.PutCard(PlayerCard);
+                    Hand.Remove(PlayerCard);
+                }
+            }
         }
+
     }
 }
