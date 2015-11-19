@@ -48,7 +48,7 @@ namespace Uno
             {
                 for (var i = 0; i < 7; i++)
                 {
-                    DealCard(player);
+                    if(!DealCard(player))
                         return;
                 }
             }
