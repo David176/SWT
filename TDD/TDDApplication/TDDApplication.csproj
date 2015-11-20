@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TDD\VectorCalculator.csproj">
+    <ProjectReference Include="..\TDD\TDD.csproj">
       <Project>{8133abcc-b6ea-4154-91a4-ff135cfbc914}</Project>
-      <Name>VectorCalculator</Name>
+      <Name>TDD</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDD", "TDD\TDD.csproj", "{8133ABCC-B6EA-4154-91A4-FF135CFBC914}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorCalculator", "TDD\VectorCalculator.csproj", "{8133ABCC-B6EA-4154-91A4-FF135CFBC914}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDDUnitTest", "TDDUnitTest\TDDUnitTest.csproj", "{11A9A9A8-A4BD-451A-B190-DE0240BAECB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorCalculator.Unit.Test", "TDDUnitTest\VectorCalculator.Unit.Test.csproj", "{11A9A9A8-A4BD-451A-B190-DE0240BAECB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDDApplication", "TDDApplication\TDDApplication.csproj", "{8CBCF59A-308C-44DB-A7A7-26B15499A238}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorCalculator.Application", "TDDApplication\VectorCalculator.Application.csproj", "{8CBCF59A-308C-44DB-A7A7-26B15499A238}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

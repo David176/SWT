@@ -8,13 +8,17 @@ namespace TDD
 {
     public class Cartesian2DVector : ICartesian2DVector
     {
-       public int coordinateX { get; set; }
-       public int coordinateY { get; set; }
-
-        public Cartesian2DVector(int coordinateX, int coordinateY) : base(coordinateX, coordinateY)
+        public Cartesian2DVector()
         {
-            CoordinateX = coordinateX;
-            CoordinateY = coordinateY;
+            
         }
+        public Cartesian2DVector(double _coordinateY, double _coordinateX)
+        {
+            coordinateX = _coordinateX;
+            coordinateY = _coordinateY;
+        }
+        public double coordinateY { get; set; }
+        public double coordinateX { get; set;  }
+
     }
 }

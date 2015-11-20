@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TDD;
+
 
 namespace TDDApplication
 {
@@ -29,6 +31,14 @@ namespace TDDApplication
                     Console.WriteLine("Could not read your name, sorry");
                 }
             }
+
+            var hej = new Cartesian2DVector();
+            hej.coordinateX = 1;
+            hej.coordinateX = 2;
+
+            var hej2 = new VectorCalculator();
+
+            hej2.AddTwoVectors(hej,hej);
         }
     }
 }
