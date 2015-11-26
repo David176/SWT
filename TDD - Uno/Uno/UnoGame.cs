@@ -13,11 +13,11 @@ namespace Uno
         private int _currentPlayersTurn;
         private bool _winnerFound;
 
-        public UnoGame(ITableDeck tableDeck, IDeck deck, CardRules cardRules)
+        public UnoGame(IDeck deck)
         {
-            _tableDeck = tableDeck;
+            _tableDeck = new TableDeck();
             _deck = deck;
-            _cardRules = cardRules;
+            _cardRules = _deck.GetCardRules();
             _playersInGame = new List<Player>();
             _currentPlayersTurn = 0;
             _winnerFound = false;
@@ -51,32 +51,20 @@ namespace Uno
         
         public void NoticeNextPlayer()
         {
-            Console.WriteLine("Player " + _currentPlayersTurn + " asked to start turn");
             _playersInGame[_currentPlayersTurn].StartTurn(); 
             _currentPlayersTurn++;
             if (_currentPlayersTurn >= _playersInGame.Count)
                 _currentPlayersTurn = 0;
         }
 
-        public void PlayCard(Card card)
+        public void PlayerPlaysCard(Card card)
         {
             _tableDeck.PutCard(card);
         }
 
         public List<Card> CurrentlyAllowedCards()
         {
-            var topCard = _tableDeck.TopCard();
-            var allowedCards = new List<Card>();
-
-            for (var i = _cardRules.LowestNumber; i <= _cardRules.HighestNumber; i++) // add all numbers of top card color
-            {
-                allowedCards.Add(new Card(i, (int) topCard.Color, _cardRules));
-            }
-            for (var i = 0; i < _cardRules.AmountOfColors; i++)
-            {
-                allowedCards.Add(new Card(topCard.Number, i, _cardRules));
-            }
-            return allowedCards;
+            return _tableDeck.CurrentlyAllowedCards(_cardRules);
         }
 
         public Card PlayerDrawsCard()

@@ -17,7 +17,7 @@ namespace Uno.Test.Unit
         [SetUp]
         public void Setup()
         {
-            _unoGame = new UnoGame(Substitute.For<ITableDeck>(), Substitute.For<IDeck>(), new CardRules(9,0,4));
+            _unoGame = new UnoGame(Substitute.For<IDeck>());
             uut = new Player(_unoGame, "Hans");
 
         }

@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Card.cs" />
     <Compile Include="CardRules.cs" />
-    <Compile Include="ConsoleWriter.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

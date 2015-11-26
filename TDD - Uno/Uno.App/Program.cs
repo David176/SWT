@@ -10,14 +10,12 @@ namespace Uno.App
     {
         static void Main(string[] args)
         {
-            CardRules cardRules = new CardRules(9,0,4);
-            ConsoleWriter consoleWriter = new ConsoleWriter();
-            Deck deck = new Deck(consoleWriter, cardRules);
-            TableDeck tableDeck = new TableDeck();
-            UnoGame unoGame = new UnoGame(tableDeck, deck, cardRules);
+            Deck deck = new Deck(new CardRules(9,0,4));
+            UnoGame unoGame = new UnoGame(deck);
 
             unoGame.AddPlayer(new Player(unoGame, "Jens"));
             unoGame.AddPlayer(new Player(unoGame, "Hans"));
+            unoGame.AddPlayer(new Player(unoGame, "Joachim"));
 
             unoGame.StartGame();
         }

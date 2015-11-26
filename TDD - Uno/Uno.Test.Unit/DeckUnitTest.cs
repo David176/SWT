@@ -8,7 +8,6 @@ namespace Uno.Test.Unit
     public class DeckUnitTest
     {
         private Deck uut;
-        private IConsoleWriter _consoleWriter;
         private UnoGame _unoGame;
         private ITableDeck _tableDeck;
 
@@ -16,9 +15,8 @@ namespace Uno.Test.Unit
         public void Setup()
         {
             _tableDeck = Substitute.For<ITableDeck>();
-            _unoGame = new UnoGame(_tableDeck, Substitute.For<IDeck>(), new CardRules(9,0,4));
-            _consoleWriter = Substitute.For<IConsoleWriter>();
-            uut = new Deck(_consoleWriter, new CardRules(9,0,4));
+            _unoGame = new UnoGame(Substitute.For<IDeck>());
+            uut = new Deck(new CardRules(9,0,4));
 
         }
         [Test]
@@ -91,16 +89,6 @@ namespace Uno.Test.Unit
             }
         }
 
-        [Test]
-        public void DealCard_DealsACard_CheckForEmptyStack()
-        {
-            var player = new Player(_unoGame, "Hans");
-
-            
-                while(uut.DealCard(player));
-            
-
-            _consoleWriter.Received(1).WriteToScreen("Deck is empty");
-        }
+        
     }
 }

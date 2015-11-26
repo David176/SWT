@@ -46,13 +46,13 @@ namespace Uno
                 }
             }
             DrawCard(cardsAllowedToPlay);
-            Thread.Sleep(2000);
+            Thread.Sleep(200);
         }
 
         private void PlayCard(Card playerCard)
         {
-            _unoGame.PlayCard(playerCard);
-            Console.WriteLine(Name + " plays " + playerCard.Color + " " + playerCard.Number);
+            _unoGame.PlayerPlaysCard(playerCard);
+            Console.WriteLine(Name + " plays " + playerCard.Color + " " + playerCard.Number+" and now has "+(Hand.Count-1)+" card(s) left");
             Hand.Remove(playerCard);
             if (Hand.Count == 0)
                 _unoGame.WinnerFound(Name);
@@ -60,6 +60,7 @@ namespace Uno
 
         private void DrawCard(List<Card> cardsAllowedToPlay)
         {
+            Console.WriteLine(Name+" draws a card");
             Card playerCard = _unoGame.PlayerDrawsCard();
             Hand.Add(playerCard);
 

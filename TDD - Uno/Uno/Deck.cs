@@ -12,19 +12,18 @@ namespace Uno
         void DealCards(List<Player> players, ref ITableDeck tableDeck);
         void Shuffle();
         Card DrawFromDeck();
+        CardRules GetCardRules();
     }
 
     public class Deck : IDeck
     {
         public List<Card> CurrentDeck;
-        private readonly IConsoleWriter _consoleWriter;
         private CardRules _cardRules;
         private static readonly Random rng = new Random();
 
-        public Deck(IConsoleWriter consoleWriter, CardRules cardRules)
+        public Deck(CardRules cardRules)
         {
             CurrentDeck = new List<Card>();
-            _consoleWriter = consoleWriter;
             _cardRules = cardRules;
 
             for (int k = 0; k < 2; k++) //amount of duplicates
@@ -37,6 +36,11 @@ namespace Uno
                     }
                 }
             }
+        }
+
+        public CardRules GetCardRules()
+        {
+            return _cardRules;
         }
 
         public bool DealCard(Player player)
@@ -54,7 +58,7 @@ namespace Uno
 
         public void DeckIsEmpty()
         {
-            _consoleWriter.WriteToScreen("Deck is empty");
+            Console.WriteLine("Deck is empty");
         }
 
         public void DealCards(List<Player> players, ref ITableDeck tableDeck)
