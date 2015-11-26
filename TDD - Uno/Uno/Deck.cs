@@ -3,24 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Uno
 {
-    public class Deck
+    public interface IDeck
+    {
+        void DealCards(List<Player> players, ref ITableDeck tableDeck);
+        void Shuffle();
+    }
+
+    public class Deck : IDeck
     {
         public List<Card> CurrentDeck;
         private readonly IConsoleWriter _consoleWriter;
+        private CardRules _cardRules;
+        private static readonly Random rng = new Random();
 
-        public Deck(IConsoleWriter consoleWriter)
+        public Deck(IConsoleWriter consoleWriter, CardRules cardRules)
         {
             CurrentDeck = new List<Card>();
             _consoleWriter = consoleWriter;
+            _cardRules = cardRules;
 
-            for (int i = 0; i < 4; i++)
+            for (int k = 0; k < 2; k++) //amount of duplicates
             {
-                for (int j = 0; j < 10; j++)
+                for (int i = 0; i < _cardRules.AmountOfColors; i++) //each color
                 {
-                    CurrentDeck.Add(new Card(j, i));
+                    for (int j = _cardRules.LowestNumber; j <= _cardRules.HighestNumber; j++) //each number
+                    {
+                        CurrentDeck.Add(new Card(j, i, _cardRules));
+                    }
                 }
             }
         }
@@ -33,6 +46,7 @@ namespace Uno
                 return false;
             }
             player.ReceiveCard(CurrentDeck[0]);
+            Console.WriteLine("Player "+player.Name+" received a card");
             CurrentDeck.RemoveAt(0);
             return true;
         }
@@ -42,16 +56,47 @@ namespace Uno
             _consoleWriter.WriteToScreen("Deck is empty");
         }
 
-        public void DealCards(List<Player> players)
+        public void DealCards(List<Player> players, ref ITableDeck tableDeck)
         {
-            foreach (var player in players)
+            for (var i = 0; i < 7; i++)
             {
-                for (var i = 0; i < 7; i++)
+                foreach (var player in players)
                 {
                     if(!DealCard(player))
                         return;
+                    Thread.Sleep(80);
                 }
             }
+            tableDeck.PutCard(CurrentDeck[0]);
+            CurrentDeck.RemoveAt(0);
+        }
+
+
+        public  void Shuffle()
+        {
+            int dots;
+            int n = CurrentDeck.Count;
+            Console.Write("\rShuffling deck");
+            while (n > 1)
+            {
+                dots = Math.Abs(n - CurrentDeck.Count);
+                Console.Write("\rShuffling deck");
+                do
+                {
+                    Console.Write(".");
+                    dots-= 2;
+                } while (dots > 0);
+                Thread.Sleep(30);
+
+
+                n--;
+                int k = rng.Next(n + 1);
+                var value = CurrentDeck[k];
+                CurrentDeck[k] = CurrentDeck[n];
+                CurrentDeck[n] = value;
+
+            }
+            Console.Write("\n");
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using NSubstitute;
 
 namespace Uno.Test.Unit
 {
@@ -11,49 +12,42 @@ namespace Uno.Test.Unit
     class PlayerUnitTest
     {
         private Player uut;
-        private TableDeck _tableDeck;
-
+        private UnoGame _unoGame;
+        
         [SetUp]
         public void Setup()
         {
-            _tableDeck = new TableDeck();
-            uut = new Player(_tableDeck);
+            _unoGame = new UnoGame(Substitute.For<ITableDeck>(), Substitute.For<IDeck>(), new CardRules(9,0,4));
+            uut = new Player(_unoGame, "Hans");
 
         }
 
         [Test]
         public void ReceiveCard_PlayerReceivesCard_HandCountIsOne()
         {
-            uut.ReceiveCard(new Card(1,1));
+            uut.ReceiveCard(new Card(1,1, new CardRules(9, 0, 4)));
             Assert.That(uut.Hand.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void PlayCard_UseGreenAndOnlyGreen_NoGreenSoNoneUsed()
+        public void PlayCard_PlayerPlaysACard_PlayerHasOneLessCard()
         {
-            _tableDeck.PutCard(new Card(5,1));
+            var allowedCards = new List<Card>();
+            allowedCards.Add(new Card(1,1, new CardRules(9, 0, 4)));
+            allowedCards.Add(new Card(2,2, new CardRules(9, 0, 4)));
+            allowedCards.Add(new Card(1,3, new CardRules(9, 0, 4)));
+            allowedCards.Add(new Card(1,2, new CardRules(9, 0, 4)));
 
-            uut.ReceiveCard(new Card(1,0));
-            uut.ReceiveCard(new Card(1,2));
-            uut.ReceiveCard(new Card(1, 3));
+            uut.ReceiveCard(new Card(1,0, new CardRules(9, 0, 4)));
+            uut.ReceiveCard(new Card(1,2, new CardRules(9, 0, 4)));
+            uut.ReceiveCard(new Card(1, 3, new CardRules(9, 0, 4)));
+
             int cardsPrevoiusly = uut.Hand.Count;
-            uut.PlayCard();
-            Assert.That(cardsPrevoiusly, Is.EqualTo(uut.Hand.Count));
+            uut.PlayCard(allowedCards);
+            Assert.That(uut.Hand.Count, Is.EqualTo(cardsPrevoiusly-1));
         }
         
-        [Test]
-        public void PlayCard_UseGreenAndOnlyGreen_GreenExistSoUsedOne()
-        {
-            _tableDeck.PutCard(new Card(5, 1));
-
-            uut.ReceiveCard(new Card(1, 0));
-            uut.ReceiveCard(new Card(1, 1));
-            uut.ReceiveCard(new Card(1, 2));
-            uut.ReceiveCard(new Card(1, 3));
-            int cardsPrevoiusly = uut.Hand.Count;
-            uut.PlayCard();
-            Assert.That(cardsPrevoiusly, Is.EqualTo(uut.Hand.Count-1));
-        }
+        
         
     }
 }

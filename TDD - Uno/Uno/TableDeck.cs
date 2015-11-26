@@ -2,7 +2,13 @@
 
 namespace Uno
 {
-    public class TableDeck
+    public interface ITableDeck
+    {
+        void PutCard(Card card);
+        Card TopCard();
+    }
+
+    public class TableDeck : ITableDeck
     {
         public List<Card> CardsOnTable;
 

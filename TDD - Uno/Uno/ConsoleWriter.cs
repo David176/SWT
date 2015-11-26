@@ -7,7 +7,7 @@ namespace Uno
         void WriteToScreen(string text);
     }
 
-    public class ConsoleWriter
+    public class ConsoleWriter : IConsoleWriter
     {
         public void WriteToScreen(string text)
         {

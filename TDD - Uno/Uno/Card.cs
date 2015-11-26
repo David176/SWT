@@ -8,22 +8,29 @@ namespace Uno
 {
     public class Card
     {
-        private enum CardColor
+        public enum CardColor
         {
             Unassigned = -1,
             Red,
             Green,
             Blue,
-            Yellow
+            Yellow,
+            Orange,
+            White,
+            Black,
+            Purple
         };
 
-        public int Number { get; set; }
-        public int Color { get; set; } //Red,Green,Blue,Yellow
+        private CardRules _cardRules;
 
-        public Card(int number, int color)
+        public int Number { get; set; }
+        public CardColor Color { get; set; } //Red,Green,Blue,Yellow
+
+        public Card(int number, int color, CardRules cardRules)
         {
-            Number = (number > 9 || number < 0 ? -1 : number);
-            Color = (color > 3 || color < 0 ? -1 : color);
+            _cardRules = cardRules;
+            Number = (number > _cardRules.HighestNumber || number < _cardRules.LowestNumber ? -1 : number);
+            Color = (CardColor) (color > _cardRules.AmountOfColors-1 || color < 0 ? -1 : color);
         }
 
         

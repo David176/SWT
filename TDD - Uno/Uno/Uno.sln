@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uno", "Uno.csproj", "{026A4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uno.Test.Unit", "..\Uno.Test.Unit\Uno.Test.Unit.csproj", "{909EA21B-B33A-4F3D-BED6-6CEB0E9AFE75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uno.App", "..\Uno.App\Uno.App.csproj", "{11B87CB1-2AF2-4B6E-88B0-E152D1F91654}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{909EA21B-B33A-4F3D-BED6-6CEB0E9AFE75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{909EA21B-B33A-4F3D-BED6-6CEB0E9AFE75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{909EA21B-B33A-4F3D-BED6-6CEB0E9AFE75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11B87CB1-2AF2-4B6E-88B0-E152D1F91654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B87CB1-2AF2-4B6E-88B0-E152D1F91654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B87CB1-2AF2-4B6E-88B0-E152D1F91654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B87CB1-2AF2-4B6E-88B0-E152D1F91654}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

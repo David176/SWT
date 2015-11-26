@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Uno
 {
     public class Player
     {
-        string Name { get; set; }
+        public string Name { get; }
         public List<Card> Hand;
-        public TableDeck TableDeck;
+        private readonly UnoGame _unoGame;
+        
 
-        public Player(TableDeck tableDeck)
+        public Player(UnoGame unoGame, string name)
         {
-            TableDeck = tableDeck;
+            _unoGame = unoGame;
             Hand = new List<Card>();
+            Name = name;
         }
 
         public void ReceiveCard(Card card)
@@ -23,17 +26,29 @@ namespace Uno
             Hand.Add(card);
         }
 
-        public void PlayCard()
+        public void StartTurn()
         {
-            foreach (var PlayerCard in Hand)
-            {
-                if (TableDeck.TopCard().Color == PlayerCard.Color)
-                {
-                    TableDeck.PutCard(PlayerCard);
-                    Hand.Remove(PlayerCard);
-                }
-            }
+            var cardsAllowedToPlay = _unoGame.CurrentlyAllowedCards();
+            PlayCard(cardsAllowedToPlay);
         }
 
+        public void PlayCard(List<Card> cardsAllowedToPlay)
+        {
+            foreach (var playerCard in Hand)
+            {
+                foreach (var allowedCard in cardsAllowedToPlay)
+                {
+                    if (playerCard.Color == allowedCard.Color && playerCard.Number == allowedCard.Number)
+                    {
+                        _unoGame.PlayCard(playerCard);
+                        Console.WriteLine(Name+" plays "+playerCard.Color+" "+playerCard.Number);
+                        Hand.Remove(playerCard);
+                        return;
+                    }
+                }
+            }
+            Console.WriteLine(Name+" passes his turn");
+            Thread.Sleep(2000);
+        }
     }
 }
