@@ -11,6 +11,7 @@ namespace Uno
     {
         void DealCards(List<Player> players, ref ITableDeck tableDeck);
         void Shuffle();
+        Card DrawFromDeck();
     }
 
     public class Deck : IDeck
@@ -97,6 +98,13 @@ namespace Uno
 
             }
             Console.Write("\n");
+        }
+
+        public Card DrawFromDeck()
+        {
+            Card returnCard = CurrentDeck[0];
+            CurrentDeck.RemoveAt(0);
+            return returnCard;
         }
     }
 }

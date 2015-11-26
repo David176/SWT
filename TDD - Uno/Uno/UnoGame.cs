@@ -42,6 +42,12 @@ namespace Uno
             } while (!_winnerFound);
         }
 
+        public void WinnerFound(string nameOfPlayer)
+        {
+            _winnerFound = true;
+            Console.WriteLine(nameOfPlayer+" has won the game");
+        }
+
         
         public void NoticeNextPlayer()
         {
@@ -71,6 +77,11 @@ namespace Uno
                 allowedCards.Add(new Card(topCard.Number, i, _cardRules));
             }
             return allowedCards;
+        }
+
+        public Card PlayerDrawsCard()
+        {
+            return _deck.DrawFromDeck();
         }
     }
 }

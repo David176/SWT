@@ -43,7 +43,7 @@ namespace Uno.Test.Unit
             uut.ReceiveCard(new Card(1, 3, new CardRules(9, 0, 4)));
 
             int cardsPrevoiusly = uut.Hand.Count;
-            uut.PlayCard(allowedCards);
+            uut.PlayIfAllowed(allowedCards);
             Assert.That(uut.Hand.Count, Is.EqualTo(cardsPrevoiusly-1));
         }
         

@@ -12,7 +12,7 @@ namespace Uno
         public string Name { get; }
         public List<Card> Hand;
         private readonly UnoGame _unoGame;
-        
+
 
         public Player(UnoGame unoGame, string name)
         {
@@ -29,10 +29,10 @@ namespace Uno
         public void StartTurn()
         {
             var cardsAllowedToPlay = _unoGame.CurrentlyAllowedCards();
-            PlayCard(cardsAllowedToPlay);
+            PlayIfAllowed(cardsAllowedToPlay);
         }
 
-        public void PlayCard(List<Card> cardsAllowedToPlay)
+        public void PlayIfAllowed(List<Card> cardsAllowedToPlay)
         {
             foreach (var playerCard in Hand)
             {
@@ -40,15 +40,37 @@ namespace Uno
                 {
                     if (playerCard.Color == allowedCard.Color && playerCard.Number == allowedCard.Number)
                     {
-                        _unoGame.PlayCard(playerCard);
-                        Console.WriteLine(Name+" plays "+playerCard.Color+" "+playerCard.Number);
-                        Hand.Remove(playerCard);
+                        PlayCard(playerCard);
                         return;
                     }
                 }
             }
-            Console.WriteLine(Name+" passes his turn");
+            DrawCard(cardsAllowedToPlay);
             Thread.Sleep(2000);
+        }
+
+        private void PlayCard(Card playerCard)
+        {
+            _unoGame.PlayCard(playerCard);
+            Console.WriteLine(Name + " plays " + playerCard.Color + " " + playerCard.Number);
+            Hand.Remove(playerCard);
+            if (Hand.Count == 0)
+                _unoGame.WinnerFound(Name);
+        }
+
+        private void DrawCard(List<Card> cardsAllowedToPlay)
+        {
+            Card playerCard = _unoGame.PlayerDrawsCard();
+            Hand.Add(playerCard);
+
+            foreach (var allowedCard in cardsAllowedToPlay)
+            {
+                if (playerCard.Color == allowedCard.Color && playerCard.Number == allowedCard.Number)
+                {
+                    PlayCard(playerCard);
+                    return;
+                }
+            }
         }
     }
 }
