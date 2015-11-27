@@ -7,11 +7,12 @@ namespace Uno
         void PutCard(Card card);
         Card TopCard();
         List<Card> CurrentlyAllowedCards(CardRules cardRules);
+        List<Card> CardsOnTable { get; }
     }
 
     public class TableDeck : ITableDeck
     {
-        public List<Card> CardsOnTable;
+        public List<Card> CardsOnTable { get; }
 
         public TableDeck()
         {

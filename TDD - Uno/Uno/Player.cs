@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Uno
 {
@@ -32,6 +29,14 @@ namespace Uno
             PlayIfAllowed(cardsAllowedToPlay);
         }
 
+        public Card[] EmptyHand()
+        {
+            var cardsInHand = new Card[Hand.Count];
+            Hand.CopyTo(cardsInHand);
+            Hand.Clear();
+            return cardsInHand;
+        }
+
         public void PlayIfAllowed(List<Card> cardsAllowedToPlay)
         {
             foreach (var playerCard in Hand)
@@ -46,7 +51,6 @@ namespace Uno
                 }
             }
             DrawCard(cardsAllowedToPlay);
-            Thread.Sleep(200);
         }
 
         private void PlayCard(Card playerCard)
@@ -56,11 +60,13 @@ namespace Uno
             Hand.Remove(playerCard);
             if (Hand.Count == 0)
                 _unoGame.WinnerFound(Name);
+            Thread.Sleep(700);
         }
 
         private void DrawCard(List<Card> cardsAllowedToPlay)
         {
             Console.WriteLine(Name+" draws a card");
+            Thread.Sleep(400);
             Card playerCard = _unoGame.PlayerDrawsCard();
             Hand.Add(playerCard);
 

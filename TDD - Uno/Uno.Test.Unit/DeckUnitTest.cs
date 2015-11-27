@@ -66,7 +66,7 @@ namespace Uno.Test.Unit
             var listOfPlayers = new List<Player>();
             listOfPlayers.Add(playerOne);
 
-            uut.DealCards(listOfPlayers, ref _tableDeck);
+            uut.DealCards(listOfPlayers,  _tableDeck);
             Assert.That(playerOne.Hand.Count, Is.EqualTo(7));
         }
 
@@ -82,7 +82,7 @@ namespace Uno.Test.Unit
             listOfPlayers.Add(playerTwo);
             listOfPlayers.Add((playerThree));
 
-            uut.DealCards(listOfPlayers, ref _tableDeck);
+            uut.DealCards(listOfPlayers,  _tableDeck);
             for (int i = 0; i < listOfPlayers.Count; i++)
             {
                 Assert.That(listOfPlayers[i].Hand.Count, Is.EqualTo(7));

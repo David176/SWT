@@ -20,21 +20,34 @@ namespace Uno
             _cardRules = _deck.GetCardRules();
             _playersInGame = new List<Player>();
             _currentPlayersTurn = 0;
-            _winnerFound = false;
         }
 
         public void AddPlayer(Player player)
         {
             _playersInGame.Add(player);
-            Console.WriteLine("Player added to the game. Currently "+_playersInGame.Count+" players in the game");
+            Console.WriteLine(_playersInGame[_playersInGame.Count-1].Name+" added to the game. Currently "+_playersInGame.Count+" players in the game");
+        }
+
+        private void EmptyPlayerHands()
+        {
+            foreach (var player in _playersInGame)
+            {
+                var cardsFromPlayer = player.EmptyHand();
+                for (int i = 0; i < cardsFromPlayer.Length; i++)
+                {
+                    _tableDeck.PutCard(cardsFromPlayer[i]);
+                }
+            }
         }
 
         public void StartGame()
         {
-            _deck.Shuffle();
-            _deck.DealCards(_playersInGame, ref _tableDeck);
+            _winnerFound = false;
+            EmptyPlayerHands();
+            _deck.Shuffle(_tableDeck);
+            _deck.DealCards(_playersInGame, _tableDeck);
             
-            Console.WriteLine("UnoGame started");
+            Console.WriteLine("\nUnoGame started");
             do
             {
                 NoticeNextPlayer();

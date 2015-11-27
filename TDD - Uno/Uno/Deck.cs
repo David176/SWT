@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 
 namespace Uno
 {
     public interface IDeck
     {
-        void DealCards(List<Player> players, ref ITableDeck tableDeck);
-        void Shuffle();
+        void DealCards(List<Player> players, ITableDeck tableDeck);
+        void Shuffle(ITableDeck tableDeck);
         Card DrawFromDeck();
         CardRules GetCardRules();
     }
@@ -51,7 +48,8 @@ namespace Uno
                 return false;
             }
             player.ReceiveCard(CurrentDeck[0]);
-            Console.WriteLine("Player "+player.Name+" received a card");
+            Console.Write("\rPlayer "+player.Name+" received a card");
+            Thread.Sleep(400);
             CurrentDeck.RemoveAt(0);
             return true;
         }
@@ -61,7 +59,7 @@ namespace Uno
             Console.WriteLine("Deck is empty");
         }
 
-        public void DealCards(List<Player> players, ref ITableDeck tableDeck)
+        public void DealCards(List<Player> players, ITableDeck tableDeck)
         {
             for (var i = 0; i < 7; i++)
             {
@@ -69,16 +67,24 @@ namespace Uno
                 {
                     if(!DealCard(player))
                         return;
-                    Thread.Sleep(80);
                 }
             }
             tableDeck.PutCard(CurrentDeck[0]);
             CurrentDeck.RemoveAt(0);
         }
 
-
-        public  void Shuffle()
+        private void Restock(ITableDeck tableDeck)
         {
+            while (tableDeck.CardsOnTable.Count > 0)
+            {
+                CurrentDeck.Add(tableDeck.CardsOnTable[0]);
+                tableDeck.CardsOnTable.RemoveAt(0);
+            }
+        }
+
+        public void Shuffle(ITableDeck tableDeck)
+        {
+            Restock(tableDeck);
             int dots;
             int n = CurrentDeck.Count;
             Console.Write("\rShuffling deck");
